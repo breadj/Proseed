@@ -10,8 +10,10 @@ public class Image {
         BufferedImage image;
         try {
             image = ImageIO.read(new File("textures\\" + filename));
+            System.out.println("Loaded " + filename);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Cannot load " + filename);
             image = null;
         }
         return image;
