@@ -9,6 +9,7 @@ public class Player {
     private Point pos;          // current position on board
     private int rootLength = 1; // always starts at 1
     private boolean isDead = false;
+    private boolean isMoving = false;
 
     private Level level;
 
@@ -44,5 +45,9 @@ public class Player {
 
     public void draw(Graphics2D g) {
         // TODO
+    }
+
+    private class Move {
+
     }
 }

@@ -1,10 +1,12 @@
 package Game;
 
+import Images.Sprites;
 import Utility.JEasyFrame;
 
 public class Game {
 
     public Level currentLevel;
+    public static Sprites sprites;
 
     public Game() {
 
@@ -16,6 +18,10 @@ public class Game {
         Game game = new Game();
         GameView view = new GameView(game);
         new JEasyFrame(view, "Roots");
+
+        // TODO: Add sprites to /textures folder and include relevant filenames here
+        sprites = new Sprites(null, null, null, null, null,
+                null, null, null);
 
         // uses pre-made Levels for the GJ demo
         boolean completed = false;
