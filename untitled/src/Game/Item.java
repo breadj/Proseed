@@ -1,4 +1,6 @@
 package Game;
 
-public class Item {
+public enum Item {
+    Water,
+    Snail
 }

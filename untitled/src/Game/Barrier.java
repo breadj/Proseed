@@ -1,7 +1,7 @@
 package Game;
 
 public enum Barrier {
-    OPEN,
+    PASSABLE,
     BREAKABLE,
     CLOSED
 }

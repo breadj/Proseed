@@ -16,5 +16,13 @@ public class GameView extends JComponent {
         Graphics2D g = (Graphics2D)gr;
         g.setColor(Color.BLACK);        // setting default background colour
 
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        game.currentLevel.draw(g);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return Constants.FRAME_SIZE;
     }
 }
