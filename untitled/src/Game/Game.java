@@ -9,10 +9,6 @@ public class Game {
     public Level currentLevel;
     public static Sprites sprites;
 
-    public Game() {
-
-    }
-
 
     public static void main(String[] args)
         throws Exception {
@@ -31,19 +27,19 @@ public class Game {
         while (!completed) {
             game.currentLevel = Level.LevelOne(game, sprites);
             completed = levelLoop(game.currentLevel, view);
-        }
+        } Thread.sleep(3000);
 
         completed = false;
         while (!completed) {
             game.currentLevel = Level.LevelTwo(game, sprites);
             completed = levelLoop(game.currentLevel, view);
-        }
+        } Thread.sleep(3000);
 
         completed = false;
         while (!completed) {
             game.currentLevel = Level.LevelThree(game, sprites);
             completed = levelLoop(game.currentLevel, view);
-        }
+        } Thread.sleep(3000);
 
         // TODO: display 'winner' message
     }

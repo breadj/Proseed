@@ -6,6 +6,7 @@ import static Game.Constants.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 public class Player {
 
@@ -25,10 +26,6 @@ public class Player {
 
     public Point position() {
         return pos;
-    }
-
-    public int rootLength() {
-        return rootLength;
     }
 
 
@@ -51,18 +48,21 @@ public class Player {
 
 
     private int updateTimer = 250;
+    private boolean completed = false;
     public void update() {
         if ((updateTimer += 20) < 250)      // 250 milliseconds is how long the wait timer is
             return;
 
         // if the update timer is equal to or larger than the wait time
         if (isMoving) {
-            boolean completed = moving.push();
-
             if (completed) {
                 isMoving = false;
                 moving = null;      // just a safety measure in case it tries moving after it's done
+                completed = false;
+                return;
             }
+
+            completed = moving.push();
         }
         updateTimer = 0;
     }
@@ -92,49 +92,62 @@ public class Player {
         }
 
         void drawRoots(Graphics2D g) {
-            if (rootEnd.equals(pos))
-                return;
             // roots texture goes westwards by default
             double rotation = 0;
             Point drawPos = null;
             Point drawTo = null;
 
+            int offsetX = 0;
+            int offsetY = 0;
+
+            int imageCentreX = level.sprites.roots.getWidth() / 2;
+            int imageCentreY = level.sprites.roots.getHeight() / 2;
+
+            int width = TILE_SIZE * 2;
+            int height = TILE_SIZE * 2;
+
             if (direction.equals(Point.NORTH)) {
                 drawPos = rootEnd;
                 drawTo = new Point(pos);
-                drawTo.add(direction);
 
                 rotation = Math.toRadians(90);
+
+                offsetX = width / 4;
+                height = (1 + drawPos.y - drawTo.y) * TILE_SIZE;
             } else if (direction.equals(Point.EAST)) {
                 drawPos = new Point(pos);
-                drawPos.add(direction);
                 drawTo = rootEnd;
 
                 rotation = Math.toRadians(180);
+
+                offsetY = height / 4;
+                width = (1 + drawPos.x - drawTo.x) * TILE_SIZE;
             } else if (direction.equals(Point.SOUTH)) {
                 drawPos = new Point(pos);
-                drawPos.add(direction);
                 drawTo = rootEnd;
 
                 rotation = Math.toRadians(270);
+
+                offsetX = width / 4;
+                height = (1 + drawPos.y - drawTo.y) * TILE_SIZE;
             } else if (direction.equals(Point.WEST)) {
                 drawPos = rootEnd;
                 drawTo = new Point(pos);
-                drawTo.add(direction);
 
                 // rotation is already 0 since texture natively faces westwards
-            }
 
-            int imageCentreX = player.level.sprites.roots.getWidth() / 2;
-            int imageCentreY = player.level.sprites.roots.getHeight() / 2;
+                offsetY = height / 4;
+                width = (1 + drawPos.x - drawTo.x) * TILE_SIZE;
+            }
 
             AffineTransform rotate = AffineTransform.getRotateInstance(rotation, imageCentreX, imageCentreY);
             AffineTransformOp op = new AffineTransformOp(rotate, AffineTransformOp.TYPE_BILINEAR);
 
-            g.drawImage(op.filter(player.level.sprites.roots, null),
-                    drawPos.x * TILE_SIZE, drawPos.y * TILE_SIZE,
-                    (1 + drawPos.x - drawTo.x) * TILE_SIZE,
-                    (1 + drawPos.y - drawTo.y) * TILE_SIZE, null);
+
+            g.drawImage(op.filter(level.sprites.roots, null),
+                    (drawPos.x * TILE_SIZE) - offsetX, (drawPos.y * TILE_SIZE) - offsetY, width, height, null);
+            g.setColor(Color.YELLOW);
+            g.fillRect((drawPos.x * TILE_SIZE) - offsetX, (drawPos.y * TILE_SIZE) - offsetY, width, height);
         }
 
         boolean push() {
@@ -191,7 +204,7 @@ public class Player {
                     currentTile.barriers[3] == Barrier.CLOSED) {
                 moveEast();
             } else if (currentTile.barriers[3] == Barrier.PASSABLE) {
-                rootEnd.add(Point.NORTH);
+                rootEnd.add(Point.WEST);
             }
         }
 

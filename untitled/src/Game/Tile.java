@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 public class Tile {
 
@@ -49,38 +48,48 @@ public class Tile {
         g.drawImage(texture, pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 
         if (barriers != null) {
-            // if you need to draw any rotated barriers
-            if (barriers[0] != Barrier.PASSABLE || barriers[2] != Barrier.PASSABLE) {
-                AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(270), WALL_THICKNESS / 2, TILE_SIZE / 2);
+            double wallCentreX = level.sprites.wall.getWidth() / 2d;
+            double wallCentreY = level.sprites.wall.getHeight() / 2d;
+
+            // north barrier
+            if (barriers[0] != Barrier.PASSABLE) {
+                AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(90), wallCentreX, wallCentreY);
                 AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
-                // north barrier
                 if (barriers[0] == Barrier.BREAKABLE) {
-                    g.drawImage(op.filter(level.sprites.breakwall, null), pos.x * TILE_SIZE, pos.y * TILE_SIZE,
-                            TILE_SIZE, WALL_THICKNESS, null);
-                } else if (barriers[0] == Barrier.CLOSED) {
-                    g.drawImage(op.filter(level.sprites.wall, null), pos.x * TILE_SIZE, pos.y * TILE_SIZE,
-                            TILE_SIZE, WALL_THICKNESS, null);
-                }
-
-                // south barrier
-                if (barriers[2] == Barrier.BREAKABLE) {
                     g.drawImage(op.filter(level.sprites.breakwall, null),
-                            pos.x * TILE_SIZE, ((1 + pos.y) * TILE_SIZE) - WALL_THICKNESS, TILE_SIZE, WALL_THICKNESS, null);
-                } else if (barriers[2] == Barrier.CLOSED) {
+                            pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                } else if (barriers[0] == Barrier.CLOSED) {
                     g.drawImage(op.filter(level.sprites.wall, null),
-                            pos.x * TILE_SIZE, ((1 + pos.y) * TILE_SIZE) - WALL_THICKNESS, TILE_SIZE, WALL_THICKNESS, null);
+                            pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
                 }
             }
 
             // east barrier
             if (barriers[1] != Barrier.PASSABLE) {
+                AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(180), wallCentreX, wallCentreY);
+                AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
                 if (barriers[1] == Barrier.BREAKABLE) {
-                    g.drawImage(level.sprites.breakwall, ((1 + pos.x) * TILE_SIZE) - WALL_THICKNESS, pos.y * TILE_SIZE,
-                            WALL_THICKNESS, TILE_SIZE, null);
+                    g.drawImage(op.filter(level.sprites.breakwall, null),
+                            pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
                 } else if (barriers[1] == Barrier.CLOSED) {
-                    g.drawImage(level.sprites.wall, ((1 + pos.x) * TILE_SIZE) - WALL_THICKNESS, pos.y * TILE_SIZE,
-                            WALL_THICKNESS, TILE_SIZE, null);
+                    g.drawImage(op.filter(level.sprites.wall, null),
+                            pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
+
+            // south barrier
+            if (barriers[2] != Barrier.PASSABLE) {
+                AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(270), wallCentreX, wallCentreY);
+                AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+                if (barriers[2] == Barrier.BREAKABLE) {
+                    g.drawImage(op.filter(level.sprites.breakwall, null),
+                            pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                } else if (barriers[2] == Barrier.CLOSED) {
+                    g.drawImage(op.filter(level.sprites.wall, null),
+                            pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
                 }
             }
 
@@ -88,10 +97,10 @@ public class Tile {
             if (barriers[3] != Barrier.PASSABLE) {
                 if (barriers[3] == Barrier.BREAKABLE) {
                     g.drawImage(level.sprites.breakwall, pos.x * TILE_SIZE, pos.y * TILE_SIZE,
-                            WALL_THICKNESS, TILE_SIZE, null);
+                            TILE_SIZE, TILE_SIZE, null);
                 } else if (barriers[3] == Barrier.CLOSED) {
                     g.drawImage(level.sprites.wall, pos.x * TILE_SIZE, pos.y * TILE_SIZE,
-                            WALL_THICKNESS, TILE_SIZE, null);
+                            TILE_SIZE, TILE_SIZE, null);
                 }
             }
         }

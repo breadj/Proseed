@@ -26,6 +26,7 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_DOWN -> game.currentLevel.player.move(Point.SOUTH);
             case KeyEvent.VK_LEFT -> game.currentLevel.player.move(Point.WEST);
             case KeyEvent.VK_R -> game.currentLevel.reset();
+            case KeyEvent.VK_ESCAPE -> System.exit(0);
         }
     }
 }
