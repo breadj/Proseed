@@ -38,7 +38,8 @@ public class Level {
 
 
     public void update() {
-        if (player.position() == exit)
+        player.update();
+        if (player.position().equals(exit))
             completed = true;
     }
 
@@ -50,7 +51,12 @@ public class Level {
         // light
         g.drawImage(sprites.light, (exit.x * TILE_SIZE) + 20, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
 
-        player.draw(g);
+        if (!completed)
+            player.draw(g);
+        else {
+            Point sproutPos = Point.add(player.position(), Point.NORTH);
+            g.drawImage(sprites.sprout, sproutPos.x, sproutPos.y, TILE_SIZE, TILE_SIZE, null);
+        }
     }
 
 

@@ -50,7 +50,12 @@ public class Player {
     }
 
 
+    private int updateTimer = 250;
     public void update() {
+        if ((updateTimer += 20) < 250)      // 250 milliseconds is how long the wait timer is
+            return;
+
+        // if the update timer is equal to or larger than the wait time
         if (isMoving) {
             boolean completed = moving.push();
 
@@ -59,6 +64,7 @@ public class Player {
                 moving = null;      // just a safety measure in case it tries moving after it's done
             }
         }
+        updateTimer = 0;
     }
 
     public void draw(Graphics2D g) {
@@ -86,6 +92,8 @@ public class Player {
         }
 
         void drawRoots(Graphics2D g) {
+            if (rootEnd.equals(pos))
+                return;
             // roots texture goes westwards by default
             double rotation = 0;
             Point drawPos = null;

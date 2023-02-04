@@ -51,7 +51,7 @@ public class Tile {
         if (barriers != null) {
             // if you need to draw any rotated barriers
             if (barriers[0] != Barrier.PASSABLE || barriers[2] != Barrier.PASSABLE) {
-                AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(90), WALL_THICKNESS / 2, TILE_SIZE / 2);
+                AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(270), WALL_THICKNESS / 2, TILE_SIZE / 2);
                 AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
                 // north barrier
