@@ -49,6 +49,10 @@ public class Level {
         reset = true;
     }
 
+    public Tile at(Point coord) {
+        return board[coord.x][coord.y];
+    }
+
 
 
     /// PRE-MADE LEVELS FOR DEMO ///

@@ -20,8 +20,10 @@ public class Game {
         new JEasyFrame(view, "Roots");
 
         // TODO: Add sprites to /textures folder and include relevant filenames here
-        sprites = new Sprites(null, null, null, null, null,
-                null, null, null);
+        sprites = new Sprites("seedling_happy.png", "seedling_sad.png",
+                "water.png", "enemy.png", "root.png",
+                "mud.png", "grass.png", "sky.png", "sun.png",
+                "grass_girl.png", "normal_wall.png", "broken_wall.png");
 
         // uses pre-made Levels for the GJ demo
         boolean completed = false;

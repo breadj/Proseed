@@ -10,7 +10,7 @@ public class Tile {
     private final Point pos;        // position/coordinates of Tile on board grid
     private Item item;              // whether there's Water, an Enemy (e.g. snail) on this tile.
                                     // Default should be null
-    private Barrier[] barriers;     // Barrier array of length 4 directions go [0] = north, [1] = east, [2] = south, [3] = west
+    public Barrier[] barriers;     // Barrier array of length 4 directions go [0] = north, [1] = east, [2] = south, [3] = west
 
     public Tile(Point position, Item item, Barrier[] barriers) {
         pos = position;
