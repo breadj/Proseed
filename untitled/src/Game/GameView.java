@@ -18,7 +18,8 @@ public class GameView extends JComponent {
 
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        game.currentLevel.draw(g);
+        if (game.currentLevel != null)
+            game.currentLevel.draw(g);
     }
 
     @Override

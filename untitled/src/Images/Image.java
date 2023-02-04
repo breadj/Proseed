@@ -9,7 +9,7 @@ public class Image {
     public static BufferedImage read(String filename) {
         BufferedImage image;
         try {
-            image = ImageIO.read(new File(filename));
+            image = ImageIO.read(new File("textures\\" + filename));
         } catch (IOException e) {
             e.printStackTrace();
             image = null;

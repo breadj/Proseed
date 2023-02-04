@@ -1,6 +1,7 @@
 package Game;
 
 import Images.Sprites;
+import Input.KeyHandler;
 import Utility.JEasyFrame;
 
 public class Game {
@@ -17,9 +18,8 @@ public class Game {
         throws Exception {
         Game game = new Game();
         GameView view = new GameView(game);
-        new JEasyFrame(view, "Roots");
+        new JEasyFrame(view, "Roots").addKeyListener(new KeyHandler(game));
 
-        // TODO: Add sprites to /textures folder and include relevant filenames here
         sprites = new Sprites("seedling_happy.png", "seedling_sad.png",
                 "water.png", "enemy.png", "root.png",
                 "mud.png", "grass.png", "sky.png", "sun.png",
@@ -29,19 +29,19 @@ public class Game {
         // uses pre-made Levels for the GJ demo
         boolean completed = false;
         while (!completed) {
-            game.currentLevel = Level.LevelOne();
+            game.currentLevel = Level.LevelOne(game, sprites);
             completed = levelLoop(game.currentLevel, view);
         }
 
         completed = false;
         while (!completed) {
-            game.currentLevel = Level.LevelTwo();
+            game.currentLevel = Level.LevelTwo(game, sprites);
             completed = levelLoop(game.currentLevel, view);
         }
 
         completed = false;
         while (!completed) {
-            game.currentLevel = Level.LevelThree();
+            game.currentLevel = Level.LevelThree(game, sprites);
             completed = levelLoop(game.currentLevel, view);
         }
 

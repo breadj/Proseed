@@ -41,6 +41,8 @@ public class Player {
 
     // direction is the direction the player is PUSHING in
     public void move(Point direction) {
+        if (isDead)     // cannot move if dead
+            return;
         if (!isMoving) {
             isMoving = true;
             moving = new Move(rootLength, pos, direction, this);
