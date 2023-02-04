@@ -1,14 +1,14 @@
 package Game;
 
 import Utility.Point;
+import static Game.Constants.*;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 public class Player {
 
-    public BufferedImage playerSprite;
-    public BufferedImage rootsSprite;
 
     private Point pos;          // current position on board
     private int rootLength = 1; // always starts at 1
@@ -63,6 +63,11 @@ public class Player {
         if (isMoving) {
             moving.drawRoots(g);
         }
+
+        if (isDead)
+            g.drawImage(level.sprites.deadplayer, pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+        else
+            g.drawImage(level.sprites.player, pos.x * TILE_SIZE, pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
     }
 
     private class Move {
@@ -79,20 +84,60 @@ public class Player {
         }
 
         void drawRoots(Graphics2D g) {
+            // roots texture goes westwards by default
+            double rotation = 0;
+            Point drawPos = null;
+            Point drawTo = null;
 
+            if (direction.equals(Point.NORTH)) {
+                drawPos = rootEnd;
+                drawTo = new Point(pos);
+                drawTo.add(direction);
+
+                rotation = Math.toRadians(90);
+            } else if (direction.equals(Point.EAST)) {
+                drawPos = new Point(pos);
+                drawPos.add(direction);
+                drawTo = rootEnd;
+
+                rotation = Math.toRadians(180);
+            } else if (direction.equals(Point.SOUTH)) {
+                drawPos = new Point(pos);
+                drawPos.add(direction);
+                drawTo = rootEnd;
+
+                rotation = Math.toRadians(270);
+            } else if (direction.equals(Point.WEST)) {
+                drawPos = rootEnd;
+                drawTo = new Point(pos);
+                drawTo.add(direction);
+
+                // rotation is already 0 since texture natively faces westwards
+            }
+
+            int imageCentreX = player.level.sprites.roots.getWidth() / 2;
+            int imageCentreY = player.level.sprites.roots.getHeight() / 2;
+
+            AffineTransform rotate = AffineTransform.getRotateInstance(rotation, imageCentreX, imageCentreY);
+            AffineTransformOp op = new AffineTransformOp(rotate, AffineTransformOp.TYPE_BILINEAR);
+
+            g.drawImage(op.filter(player.level.sprites.roots, null),
+                    drawPos.x * TILE_SIZE, drawPos.y * TILE_SIZE,
+                    (1 + drawPos.x - drawTo.x) * TILE_SIZE,
+                    (1 + drawPos.y - drawTo.y) * TILE_SIZE, null);
         }
 
         boolean push() {
             if (rootLengthLeft <= 0)
                 return true;        // completed the move
 
-            if (direction == Point.NORTH) {
+            if (direction.equals(Point.NORTH)) {
                 pushNorth();
-            } else if (direction == Point.EAST) {
+            } else if (direction.equals(Point.EAST)) {
                 pushEast();
-            } else if (direction == Point.SOUTH) {
+            } else if (direction.equals(Point.SOUTH)) {
                 pushSouth();
-            } else if (direction == Point.WEST) {
+            } else if (direction.equals(Point.WEST)) {
                 pushWest();
             }
 

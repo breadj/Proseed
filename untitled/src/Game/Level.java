@@ -1,11 +1,14 @@
 package Game;
 
+import Images.Sprites;
 import Utility.Point;
 import static Game.Constants.*;
 
 import java.awt.*;
 
 public class Level {
+
+    public final Sprites sprites;
 
     private Game game;
     private Player player;
@@ -16,13 +19,15 @@ public class Level {
     private final Point start;        // position of the Tile where the Player starts
     private final Point exit;          // position of the Tile where the Player finishes the Level
 
-    public Level(Game game, Tile[][] board, Point start, Point exit) {
+    public Level(Game game, Tile[][] board, Point start, Point exit, Sprites sprites) {
         this.game = game;
         this.board = board;
         this.start = start;
         this.exit = exit;
 
         player = new Player(start, this);
+
+        this.sprites = sprites;
     }
 
 

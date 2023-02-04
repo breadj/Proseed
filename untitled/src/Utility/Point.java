@@ -35,6 +35,13 @@ public class Point {
         this.y += other.y;
     }
 
+    public int length() {
+        if (x == 0)
+            return Math.abs(y);
+        else
+            return Math.abs(x);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof Point p)

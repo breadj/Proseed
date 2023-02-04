@@ -23,7 +23,8 @@ public class Game {
         sprites = new Sprites("seedling_happy.png", "seedling_sad.png",
                 "water.png", "enemy.png", "root.png",
                 "mud.png", "grass.png", "sky.png", "sun.png",
-                "grass_girl.png", "normal_wall.png", "broken_wall.png");
+                "grass_girl.png", "light.png", "normal_wall.png",
+                "broken_wall.png");
 
         // uses pre-made Levels for the GJ demo
         boolean completed = false;

@@ -3,9 +3,12 @@ package Game;
 import Utility.Point;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 public class Tile {
+
+    private Level level;
 
     private final Point pos;        // position/coordinates of Tile on board grid
     private Item item;              // whether there's Water, an Enemy (e.g. snail) on this tile.
