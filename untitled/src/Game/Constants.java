@@ -12,6 +12,6 @@ public class Constants {
 
     // length of one side of a tile in pixels
     public static final int TILE_SIZE = 120;
-    public static final int WALL_THICKNESS = 10;
     public static final int ITEM_SIZE = 80;
+    public static final int ITEM_MARGIN = (TILE_SIZE - ITEM_SIZE) / 2;
 }

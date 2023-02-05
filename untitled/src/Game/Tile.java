@@ -107,9 +107,11 @@ public class Tile {
 
         // item
         if (item == Item.Water) {
-            g.drawImage(level.sprites.water, (pos.x * TILE_SIZE) + 20, (pos.y * TILE_SIZE) + 20, ITEM_SIZE, ITEM_SIZE, null);
+            g.drawImage(level.sprites.water, (pos.x * TILE_SIZE) + ITEM_MARGIN, (pos.y * TILE_SIZE) + ITEM_MARGIN,
+                    ITEM_SIZE, ITEM_SIZE, null);
         } else if (item == Item.Snail) {
-            g.drawImage(level.sprites.enemy, (pos.x * TILE_SIZE) + 20, (pos.y * TILE_SIZE) + 20, ITEM_SIZE, ITEM_SIZE, null);
+            g.drawImage(level.sprites.enemy, (pos.x * TILE_SIZE) + ITEM_MARGIN, (pos.y * TILE_SIZE) + ITEM_MARGIN,
+                    ITEM_SIZE, ITEM_SIZE, null);
         }
     }
 }

@@ -2,9 +2,13 @@ package Game;
 
 import Images.Sprites;
 import Utility.Point;
+
+import javax.crypto.spec.OAEPParameterSpec;
+
 import static Game.Constants.*;
 
 import java.awt.*;
+import java.util.ResourceBundle;
 
 public class Level {
 
@@ -49,13 +53,13 @@ public class Level {
                 tile.draw(g);
 
         // light
-        g.drawImage(sprites.light, (exit.x * TILE_SIZE) + 20, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
+        g.drawImage(sprites.light, (exit.x * TILE_SIZE) + ITEM_SIZE, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
 
 
         player.draw(g);
         if (completed) {
             Point sproutPos = Point.add(player.position(), Point.NORTH);
-            g.drawImage(sprites.sprout, (sproutPos.x * TILE_SIZE) + 20, (sproutPos.y * TILE_SIZE), ITEM_SIZE, ITEM_SIZE, null);
+            g.drawImage(sprites.sprout, (sproutPos.x * TILE_SIZE) + ITEM_MARGIN, (sproutPos.y * TILE_SIZE), ITEM_SIZE, ITEM_SIZE, null);
         }
 
         g.drawImage(sprites.sun, (board.length - 1) * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, null);
@@ -196,6 +200,97 @@ public class Level {
     // harder, bigger Level
     // probably final one for the Game Jam demo
     public static Level LevelThree(Game game, Sprites sprites) {
-        return null;
+        Tile[][] board = new Tile[7][9];
+
+        // overground
+        for (int i = 0; i < 7; i++){
+            board[i][0] = new Tile(new Point(i, 0), null, null, sprites.sky);
+            board[i][1] = new Tile(new Point(i, 1), null, null, sprites.grass);
+        }
+
+        // underground
+        board[0][2] = new Tile(new Point(0, 2), null, null, sprites.mud);
+        board[1][2] = new Tile(new Point(1, 2), null, null, sprites.mud);
+        Barrier[] barriers22 = { Barrier.CLOSED, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[2][2] = new Tile(new Point(2, 2), null, barriers22, sprites.mud);
+        board[3][2] = new Tile(new Point(3, 2), null, null, sprites.mud);
+        board[4][2] = new Tile(new Point(4, 2), null, null, sprites.mud);
+        board[5][2] = new Tile(new Point(5, 2), null, null, sprites.mud);
+        Barrier[] barriers62 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[6][2] = new Tile(new Point(6, 2), null, barriers62, sprites.mud);
+
+        Barrier[] barriers03 = { Barrier.CLOSED, Barrier.CLOSED, Barrier.BREAKABLE, Barrier.CLOSED };
+        board[0][3] = new Tile(new Point(0, 3), Item.Snail, barriers03, sprites.mud);
+        board[1][3] = new Tile(new Point(1, 3), null, null, sprites.mud);
+        Barrier[] barriers23 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[2][3] = new Tile(new Point(2, 3), Item.Snail, barriers23, sprites.mud);
+        board[3][3] = new Tile(new Point(3, 3), null, null, sprites.mud);
+        board[4][3] = new Tile(new Point(4, 3), null, null, sprites.mud);
+        board[5][3] = new Tile(new Point(5, 3), null, null, sprites.mud);
+        Barrier[] barriers63 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[6][3] = new Tile(new Point(6, 3), null, barriers63, sprites.mud);
+
+        Barrier[] barriers04 = { Barrier.BREAKABLE, Barrier.PASSABLE, Barrier.BREAKABLE, Barrier.CLOSED };
+        board[0][4] = new Tile(new Point(0, 4), null, barriers04, sprites.mud);
+        Barrier[] barriers14 = { Barrier.CLOSED, Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.PASSABLE };
+        board[1][4] = new Tile(new Point(1, 4), null, barriers14, sprites.mud);
+        Barrier[] barriers24 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.BREAKABLE, Barrier.BREAKABLE };
+        board[2][4] = new Tile(new Point(2, 4), Item.Water, barriers24, sprites.mud);
+        board[3][4] = new Tile(new Point(3, 4), null, null, sprites.mud);
+        board[4][4] = new Tile(new Point(4, 4), null, null, sprites.mud);
+        board[5][4] = new Tile(new Point(5, 4), null, null, sprites.mud);
+        Barrier[] barriers64 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[6][4] = new Tile(new Point(6, 4), null, barriers64, sprites.mud);
+
+        Barrier[] barriers05 = { Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.CLOSED, Barrier.CLOSED};
+        board[0][5] = new Tile(new Point(0, 5), Item.Water, barriers05, sprites.mud);
+        Barrier[] barriers15 = { Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.BREAKABLE };
+        board[1][5] = new Tile(new Point(1, 5), null, barriers15, sprites.mud);
+        Barrier[] barriers25 = { Barrier.BREAKABLE, Barrier.CLOSED, Barrier.BREAKABLE, Barrier.BREAKABLE };
+        board[2][5] = new Tile(new Point(2, 5), null, barriers25, sprites.mud);
+        board[3][5] = new Tile(new Point(3, 5), null, null, sprites.mud);
+        board[4][5] = new Tile(new Point(4, 5), null, null, sprites.mud);
+        board[5][5] = new Tile(new Point(5, 5), null, null, sprites.mud);
+        Barrier[] barriers65 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[6][5] = new Tile(new Point(6, 5), null, barriers65, sprites.mud);
+
+        board[0][6] = new Tile(new Point(0, 6), null, null, sprites.mud);
+        Barrier[] barriers16 = { Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.PASSABLE, Barrier.CLOSED };
+        board[1][6] = new Tile(new Point(1, 6), null, barriers16, sprites.mud);
+        Barrier[] barriers26 = { Barrier.BREAKABLE, Barrier.PASSABLE, Barrier.BREAKABLE, Barrier.BREAKABLE };
+        board[2][6] = new Tile(new Point(2, 6), null, barriers26, sprites.mud);
+        Barrier[] barriers36 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE };
+        board[3][6] = new Tile(new Point(3, 6), null, barriers36, sprites.mud);
+        Barrier[] barriers46 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE };
+        board[4][6] = new Tile(new Point(4, 6), null, barriers46, sprites.mud);
+        Barrier[] barriers56 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE };
+        board[5][6] = new Tile(new Point(5, 6), null, barriers56, sprites.mud);
+        Barrier[] barriers66 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.CLOSED, Barrier.PASSABLE };
+        board[6][6] = new Tile(new Point(6, 6), null, barriers66, sprites.mud);
+
+        board[0][7] = new Tile(new Point(0, 7), null, null, sprites.mud);
+        Barrier[] barriers17 = { Barrier.PASSABLE, Barrier.BREAKABLE, Barrier.CLOSED, Barrier.CLOSED };
+        board[1][7] = new Tile(new Point(1, 7), null, barriers17, sprites.mud);
+        Barrier[] barriers27 = { Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.PASSABLE, Barrier.BREAKABLE };
+        board[2][7] = new Tile(new Point(2, 7), Item.Water, barriers27, sprites.mud);
+        Barrier[] barriers37 = { Barrier.CLOSED, Barrier.CLOSED, Barrier.CLOSED, Barrier.BREAKABLE };
+        board[3][7] = new Tile(new Point(3, 7), Item.Snail, barriers37, sprites.mud);
+        board[4][7] = new Tile(new Point(4, 7), null, null, sprites.mud);
+        board[5][7] = new Tile(new Point(5, 7), null, null, sprites.mud);
+        board[6][7] = new Tile(new Point(6, 7), null, null, sprites.mud);
+
+        board[0][8] = new Tile(new Point(0, 8), null, null, sprites.mud);
+        board[1][8] = new Tile(new Point(1, 8), null, null, sprites.mud);
+        Barrier[] barriers28 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.CLOSED, Barrier.CLOSED };
+        board[2][8] = new Tile(new Point(2, 8), Item.Snail, barriers28, sprites.mud);
+        board[3][8] = new Tile(new Point(3, 8), null, null, sprites.mud);
+        board[4][8] = new Tile(new Point(4, 8), null, null, sprites.mud);
+        board[5][8] = new Tile(new Point(5, 8), null, null, sprites.mud);
+        board[6][8] = new Tile(new Point(6, 8), null, null, sprites.mud);
+
+        Point start = new Point(1, 5);
+        Point exit = new Point(6, 2);
+
+        return new Level(game, board, start, exit, sprites);
     }
 }
