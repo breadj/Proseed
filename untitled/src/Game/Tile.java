@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
     public Level level;
-    private BufferedImage texture;
+    private final BufferedImage texture;
 
     private final Point pos;        // position/coordinates of Tile on board grid
     private Item item;              // whether there's Water, an Enemy (e.g. snail) on this tile.

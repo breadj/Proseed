@@ -2,31 +2,24 @@ package Game;
 
 import Images.Sprites;
 import Utility.Point;
-
-import javax.crypto.spec.OAEPParameterSpec;
-
 import static Game.Constants.*;
 
 import java.awt.*;
-import java.util.ResourceBundle;
 
 public class Level {
 
     public final Sprites sprites;
 
-    private Game game;
     public Player player;
     public boolean reset = false;           // whether the level needs to be reset
     public boolean completed = false;        // whether the Player has completed the level
 
     public Tile[][] board;      // 2D array of Tiles for the board layout
-    private final Point start;        // position of the Tile where the Player starts
     private final Point exit;          // position of the Tile where the Player finishes the Level
 
     public Level(Game game, Tile[][] board, Point start, Point exit, Sprites sprites) {
-        this.game = game;
         this.board = board;
-        this.start = start;
+        // position of the Tile where the Player starts
         this.exit = exit;
 
         player = new Player(start, this);
