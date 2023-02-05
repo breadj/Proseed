@@ -12,6 +12,7 @@ public class Game {
 
     public static void main(String[] args)
         throws Exception {
+        Sound.main(args);
         Game game = new Game();
         GameView view = new GameView(game);
         new JEasyFrame(view, "Roots").addKeyListener(new KeyHandler(game));
