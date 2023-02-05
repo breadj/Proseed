@@ -89,7 +89,6 @@ public class Player {
         void drawRoots(Graphics2D g) {
             if (rootEnd.equals(pos))
                 return;
-            System.out.println(pos + " : " + rootEnd);
 
             // roots texture goes westwards by default
             double rotation = 0;
@@ -149,8 +148,6 @@ public class Player {
                 pushWest();
             }
 
-            System.out.println("Player position: " + pos);
-            System.out.println("End of root position: " + rootEnd);
             rootLengthLeft -= 1;
             return false;
         }
