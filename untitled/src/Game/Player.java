@@ -1,12 +1,17 @@
 package Game;
 
 import Utility.Point;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import static Game.Constants.*;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Player {
 
@@ -30,7 +35,18 @@ public class Player {
 
     public void interact(Item item) {
         switch (item) {
-            case Water -> rootLength += 1;
+            case Water -> {rootLength += 1;
+                try {
+                    Sound.soundWater.main();
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             case Snail -> isDead = true;
         }
     }
@@ -43,7 +59,6 @@ public class Player {
             moving = new Move(rootLength, pos, direction, this);
         }
     }
-
 
     private int updateTimer = 0;
     public void update() {

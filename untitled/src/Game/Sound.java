@@ -4,9 +4,12 @@ package Game;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
 
 
 public class Sound {
+
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File("Sound/Minimalism.wav");//https://soundcloud.com/flat-cap-tiger/minimalism-take-2-re-mastered
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
@@ -22,7 +25,23 @@ public class Sound {
         FloatControl gainControl2 = (FloatControl) clip2.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl2.setValue(-15.0f); // reduce volume by 15db
         clip2.start();
-    }// splash https://freesound.org/people/soundscalpel.com/sounds/110393/
+    }
+public static class soundWater{
+    public static void main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+        File filew = new File("Sound/Splash.wav");//https://freesound.org/people/soundscalpel.com/sounds/110393/
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(filew);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-15.0f); // reduce volume by 15db
+        clip.start();
+    }
+}
+
+
+
+    // splash https://freesound.org/people/soundscalpel.com/sounds/110393/
+    // stretch https://freesound.org/people/aabbccddee123/sounds/469429/
 
 
 }
