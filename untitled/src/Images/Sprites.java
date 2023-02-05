@@ -4,19 +4,21 @@ import java.awt.image.BufferedImage;
 
 public class Sprites {
 
-    public final BufferedImage player, deadplayer, water, enemy, roots;
+    public final BufferedImage player, deadplayer, water, enemy, rootstart, rootmid, rootend;
     public final BufferedImage mud, grass, sky, sun, sprout, light;
     public final BufferedImage wall, breakwall;
 
     public Sprites(String playerImgFilename, String deadplayerImgFilename, String waterImgFilename, String enemyImgFilename,
-                   String rootsImgFilename,
+                   String rootstartImgFilename, String rootmidImgFilename, String rootendImgFilename,
                    String mudImgFilename, String grassImgFilename, String skyImgFilename, String sunImgFilename,
                    String sproutImgFilename, String lightImgFilename, String wallImgFilename, String breakwallImgFilename) {
         player = Image.read(playerImgFilename);
         deadplayer = Image.read(deadplayerImgFilename);
         water = Image.read(waterImgFilename);
         enemy = Image.read(enemyImgFilename);
-        roots = Image.read(rootsImgFilename);
+        rootstart = Image.read(rootstartImgFilename);
+        rootmid = Image.read(rootmidImgFilename);
+        rootend = Image.read(rootendImgFilename);
 
         mud = Image.read(mudImgFilename);
         grass = Image.read(grassImgFilename);

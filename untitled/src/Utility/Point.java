@@ -49,6 +49,11 @@ public class Point {
         else return false;
     }
 
+    @Override
+    public String toString() {
+        return "(" + x + ',' + y + ')';
+    }
+
     public static Point add(Point a, Point b) {
         return new Point(a.x + b.x, a.y + b.y);
     }

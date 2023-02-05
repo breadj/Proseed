@@ -51,9 +51,9 @@ public class Level {
         // light
         g.drawImage(sprites.light, (exit.x * TILE_SIZE) + 20, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
 
-        if (!completed)
-            player.draw(g);
-        else {
+
+        player.draw(g);
+        if (completed) {
             Point sproutPos = Point.add(player.position(), Point.NORTH);
             g.drawImage(sprites.sprout, (sproutPos.x * TILE_SIZE) + 20, (sproutPos.y * TILE_SIZE), ITEM_SIZE, ITEM_SIZE, null);
         }
@@ -150,7 +150,47 @@ public class Level {
 
         Barrier[] barriers04 = { Barrier.BREAKABLE, Barrier.BREAKABLE, Barrier.PASSABLE, Barrier.CLOSED };
         board[0][4] = new Tile(new Point(0, 4), null, barriers04, sprites.mud);
-        return null;
+        Barrier[] barriers14 = { Barrier.PASSABLE, Barrier.PASSABLE, Barrier.PASSABLE, Barrier.BREAKABLE };
+        board[1][4] = new Tile(new Point(1, 4), null, barriers14, sprites.mud);
+        Barrier[] barriers24 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.CLOSED, Barrier.PASSABLE };
+        board[2][4] = new Tile(new Point(2, 4), null, barriers24, sprites.mud);
+        Barrier[] barriers34 = { Barrier.PASSABLE, Barrier.PASSABLE, Barrier.PASSABLE, Barrier.CLOSED };
+        board[3][4] = new Tile(new Point(3, 4), null, barriers34, sprites.mud);
+        Barrier[] barriers44 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.PASSABLE };
+        board[4][4] = new Tile(new Point(4, 4), null, barriers44, sprites.mud);
+        Barrier[] barriers54 = { Barrier.PASSABLE, Barrier.PASSABLE, Barrier.CLOSED, Barrier.CLOSED };
+        board[5][4] = new Tile(new Point(5, 4), null, barriers54, sprites.mud);
+
+        Barrier[] barriers05 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED };
+        board[0][5] = new Tile(new Point(0, 5), null, barriers05, sprites.mud);
+        Barrier[] barriers15 = { Barrier.PASSABLE, Barrier.BREAKABLE, Barrier.CLOSED, Barrier.CLOSED };
+        board[1][5] = new Tile(new Point(1, 5), null, barriers15, sprites.mud);
+        Barrier[] barriers25 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.PASSABLE, Barrier.BREAKABLE };
+        board[2][5] = new Tile(new Point(2, 5), Item.Water, barriers25, sprites.mud);
+        Barrier[] barriers35 = { Barrier.PASSABLE, Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE };
+        board[3][5] = new Tile(new Point(3, 5), null, barriers35, sprites.mud);
+        Barrier[] barriers45 = { Barrier.PASSABLE, Barrier.BREAKABLE, Barrier.CLOSED, Barrier.PASSABLE };
+        board[4][5] = new Tile(new Point(4, 5), null, barriers45, sprites.mud);
+        Barrier[] barriers55 = { Barrier.CLOSED, Barrier.CLOSED, Barrier.CLOSED, Barrier.BREAKABLE };
+        board[5][5] = new Tile(new Point(5, 5), Item.Snail, barriers55, sprites.mud);
+
+        Barrier[] barriers06 = { Barrier.PASSABLE, Barrier.PASSABLE, Barrier.CLOSED, Barrier.CLOSED };
+        board[0][6] = new Tile(new Point(0, 6), null, barriers06, sprites.mud);
+        Barrier[] barriers16 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.CLOSED, Barrier.PASSABLE };
+        board[1][6] = new Tile(new Point(1, 6), null, barriers16, sprites.mud);
+        Barrier[] barriers26 = { Barrier.PASSABLE, Barrier.CLOSED, Barrier.CLOSED, Barrier.PASSABLE };
+        board[2][6] = new Tile(new Point(2, 6), null, barriers26, sprites.mud);
+        Barrier[] barriers36 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.PASSABLE, Barrier.CLOSED };
+        board[3][6] = new Tile(new Point(3, 6), null, barriers36, sprites.mud);
+        Barrier[] barriers46 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.PASSABLE, Barrier.PASSABLE };
+        board[4][6] = new Tile(new Point(4, 6), null, barriers46, sprites.mud);
+        Barrier[] barriers56 = { Barrier.CLOSED, Barrier.PASSABLE, Barrier.PASSABLE, Barrier.PASSABLE };
+        board[5][6] = new Tile(new Point(5, 6), null, barriers56, sprites.mud);
+
+        Point start = new Point(1, 5);
+        Point exit = new Point(2, 2);
+
+        return new Level(game, board, start, exit, sprites);
     }
 
     // harder, bigger Level

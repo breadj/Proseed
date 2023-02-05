@@ -17,8 +17,9 @@ public class Game {
         new JEasyFrame(view, "Roots").addKeyListener(new KeyHandler(game));
 
         sprites = new Sprites("seedling_happy.png", "seedling_sad.png",
-                "water.png", "enemy.png", "root.png",
-                "mud.png", "grass.png", "sky.png", "sun.png",
+                "water.png", "enemy.png", "root2.png",
+                "root3.png", "root.png", "mud.png",
+                "grass.png", "sky.png", "sun.png",
                 "grass_girl.png", "light.png", "normal_wall.png",
                 "broken_wall.png");
 

@@ -14,7 +14,6 @@ public class Player {
     private Point pos;          // current position on board
     private int rootLength = 1; // always starts at 1
     private boolean isDead = false;
-    private boolean isMoving = false;
     private Move moving = null;
 
     private Level level;
@@ -40,25 +39,22 @@ public class Player {
     public void move(Point direction) {
         if (isDead)     // cannot move if dead
             return;
-        if (!isMoving) {
-            isMoving = true;
+        if (moving == null) {
             moving = new Move(rootLength, pos, direction, this);
         }
     }
 
 
-    private int updateTimer = 250;
-
+    private int updateTimer = 0;
     public void update() {
         if ((updateTimer += 20) < 250)      // 250 milliseconds is how long the wait timer is
             return;
 
         // if the update timer is equal to or larger than the wait time
-        if (isMoving) {
-            boolean completed = moving.push();
+        if (moving != null) {
+            boolean completed = moving.push();      // completed meaning whether the move has been fully done
 
             if (completed) {
-                isMoving = false;
                 moving = null;      // just a safety measure in case it tries moving after it's done
                 return;
             }
@@ -67,7 +63,7 @@ public class Player {
     }
 
     public void draw(Graphics2D g) {
-        if (isMoving) {
+        if (moving != null) {
             moving.drawRoots(g);
         }
 
@@ -91,62 +87,52 @@ public class Player {
         }
 
         void drawRoots(Graphics2D g) {
+            if (rootEnd.equals(pos))
+                return;
+            System.out.println(pos + " : " + rootEnd);
+
             // roots texture goes westwards by default
             double rotation = 0;
             Point drawPos = null;
             Point drawTo = null;
 
-            int offsetX = 0;
-            int offsetY = 0;
-
-            int imageCentreX = level.sprites.roots.getWidth() / 2;
-            int imageCentreY = level.sprites.roots.getHeight() / 2;
-
-            int width = TILE_SIZE * 2;
-            int height = TILE_SIZE * 2;
+            int imageCentreX = level.sprites.rootstart.getWidth() / 2;
+            int imageCentreY = level.sprites.rootstart.getHeight() / 2;
 
             if (direction.equals(Point.NORTH)) {
                 drawPos = rootEnd;
-                drawTo = new Point(pos);
+                drawTo = Point.add(pos, Point.NORTH);
 
                 rotation = Math.toRadians(90);
-
-                offsetX = width / 4;
-                height = (1 + drawPos.y - drawTo.y) * TILE_SIZE;
             } else if (direction.equals(Point.EAST)) {
-                drawPos = new Point(pos);
+                drawPos = Point.add(pos, Point.EAST);
                 drawTo = rootEnd;
 
                 rotation = Math.toRadians(180);
-
-                offsetY = height / 4;
-                width = (1 + drawPos.x - drawTo.x) * TILE_SIZE;
             } else if (direction.equals(Point.SOUTH)) {
-                drawPos = new Point(pos);
+                drawPos = Point.add(pos, Point.SOUTH);
                 drawTo = rootEnd;
 
                 rotation = Math.toRadians(270);
-
-                offsetX = width / 4;
-                height = (1 + drawPos.y - drawTo.y) * TILE_SIZE;
             } else if (direction.equals(Point.WEST)) {
                 drawPos = rootEnd;
-                drawTo = new Point(pos);
+                drawTo = Point.add(pos, Point.WEST);
 
                 // rotation is already 0 since texture natively faces westwards
-
-                offsetY = height / 4;
-                width = (1 + drawPos.x - drawTo.x) * TILE_SIZE;
             }
 
             AffineTransform rotate = AffineTransform.getRotateInstance(rotation, imageCentreX, imageCentreY);
             AffineTransformOp op = new AffineTransformOp(rotate, AffineTransformOp.TYPE_BILINEAR);
 
+            g.drawImage(op.filter(level.sprites.rootstart, null), pos.x * TILE_SIZE, pos.y * TILE_SIZE,
+                    TILE_SIZE, TILE_SIZE, null);
 
-            g.drawImage(op.filter(level.sprites.roots, null),
-                    (drawPos.x * TILE_SIZE) - offsetX, (drawPos.y * TILE_SIZE) - offsetY, width, height, null);
-            g.setColor(Color.YELLOW);
-            g.fillRect((drawPos.x * TILE_SIZE) - offsetX, (drawPos.y * TILE_SIZE) - offsetY, width, height);
+            for (Point p = Point.add(pos, direction); !p.equals(rootEnd); p.add(direction))
+                g.drawImage(op.filter(level.sprites.rootmid, null), p.x * TILE_SIZE, p.y * TILE_SIZE,
+                        TILE_SIZE, TILE_SIZE, null);
+
+            g.drawImage(op.filter(level.sprites.rootend, null),
+                    rootEnd.x * TILE_SIZE, rootEnd.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
         }
 
         boolean push() {
@@ -163,6 +149,8 @@ public class Player {
                 pushWest();
             }
 
+            System.out.println("Player position: " + pos);
+            System.out.println("End of root position: " + rootEnd);
             rootLengthLeft -= 1;
             return false;
         }
