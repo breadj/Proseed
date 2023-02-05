@@ -16,7 +16,7 @@ public class Sound {
         Clip clip = AudioSystem.getClip();
         clip.open(audioStream);
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(-15.0f); // reduce volume by 15db
+        gainControl.setValue(-7.0f); // reduce volume by 7db
         clip.start();
         File file2 = new File("Sound/birdambient.wav"); //https://freesound.org/people/bajko/sounds/385279/
         AudioInputStream audioStream2 = AudioSystem.getAudioInputStream(file2);
@@ -45,7 +45,7 @@ public static class soundWater{
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(0); // no volume change
+            gainControl.setValue(+6f); // increase volume by 6
             clip.start();
         }
     }
