@@ -23,26 +23,29 @@ public class Game {
                 "grass.png", "sky.png", "sun.png",
                 "grass_girl.png", "light.png", "normal_wall.png",
                 "broken_wall.png");
+        while (true) {
+            // uses pre-made Levels for the GJ demo
+            boolean completed = false;
+            while (!completed) {
+                game.currentLevel = Level.LevelOne(game, sprites);
+                completed = levelLoop(game.currentLevel, view);
+            }
+            Thread.sleep(3000);
 
-        // uses pre-made Levels for the GJ demo
-        boolean completed = false;
-        while (!completed) {
-            game.currentLevel = Level.LevelOne(game, sprites);
-            completed = levelLoop(game.currentLevel, view);
-        } Thread.sleep(3000);
+            completed = false;
+            while (!completed) {
+                game.currentLevel = Level.LevelTwo(game, sprites);
+                completed = levelLoop(game.currentLevel, view);
+            }
+            Thread.sleep(3000);
 
-        completed = false;
-        while (!completed) {
-            game.currentLevel = Level.LevelTwo(game, sprites);
-            completed = levelLoop(game.currentLevel, view);
-        } Thread.sleep(3000);
-
-        completed = false;
-        while (!completed) {
-            game.currentLevel = Level.LevelThree(game, sprites);
-            completed = levelLoop(game.currentLevel, view);
-        } Thread.sleep(3000);
-
+            completed = false;
+            while (!completed) {
+                game.currentLevel = Level.LevelThree(game, sprites);
+                completed = levelLoop(game.currentLevel, view);
+            }
+            Thread.sleep(3000);
+        }
         // TODO: display 'winner' message
     }
 
