@@ -11,7 +11,7 @@ public class Constants {
     public static final Dimension FRAME_SIZE = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
     // length of one side of a tile in pixels
-    public static final int TILE_SIZE = 120;
-    public static final int ITEM_SIZE = 80;
+    public static final int TILE_SIZE = 110;
+    public static final int ITEM_SIZE = 85;
     public static final int ITEM_MARGIN = (TILE_SIZE - ITEM_SIZE) / 2;
 }
