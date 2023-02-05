@@ -22,7 +22,7 @@ public class Sound {
         FloatControl gainControl2 = (FloatControl) clip2.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl2.setValue(-15.0f); // reduce volume by 15db
         clip2.start();
-    }
+    }// splash https://freesound.org/people/soundscalpel.com/sounds/110393/
 
 
 }
