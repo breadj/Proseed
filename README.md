@@ -1,3 +1,7 @@
+
+
+[Proseed Logo](https://cseegit.essex.ac.uk/jd21726/ggj-2023/-/raw/main/untitled/textures/logo.png)
+
 Proseed - Global Game Jam 2023
 Theme: Roots
 
