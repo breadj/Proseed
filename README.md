@@ -28,12 +28,12 @@ Controls:
 
 Platforms: MS Windows
 
-Software Used:
-Intellij IDEA
-Paint
-Clip Studio Paint PRO
-Soundcloud
-Freesound
-SFXR.me
-GitLab
-Trello
+- Software Used:
+- Intellij IDEA
+- Paint
+- Clip Studio Paint PRO
+- Soundcloud
+- Freesound
+- SFXR.me
+- GitLab
+- Trello
