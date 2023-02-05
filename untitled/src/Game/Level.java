@@ -5,10 +5,12 @@ import Utility.Point;
 import static Game.Constants.*;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Level {
 
     public final Sprites sprites;
+    private final boolean finalLevel;
 
     public Player player;
     public boolean reset = false;           // whether the level needs to be reset
@@ -17,7 +19,7 @@ public class Level {
     public Tile[][] board;      // 2D array of Tiles for the board layout
     private final Point exit;          // position of the Tile where the Player finishes the Level
 
-    public Level(Game game, Tile[][] board, Point start, Point exit, Sprites sprites) {
+    public Level(Game game, Tile[][] board, Point start, Point exit, Sprites sprites, boolean finalLevel) {
         this.board = board;
         // position of the Tile where the Player starts
         this.exit = exit;
@@ -31,6 +33,8 @@ public class Level {
                 tile.level = this;
             }
         }
+
+        this.finalLevel = finalLevel;
     }
 
 
@@ -46,16 +50,22 @@ public class Level {
                 tile.draw(g);
 
         // light
-        g.drawImage(sprites.light, (exit.x * TILE_SIZE) + ITEM_MARGIN, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
-
+        if (completed)
+            g.drawImage(sprites.light, (exit.x * TILE_SIZE) + ITEM_MARGIN, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
 
         player.draw(g);
         if (completed) {
             Point sproutPos = Point.add(player.position(), Point.NORTH);
-            g.drawImage(sprites.sprout, (sproutPos.x * TILE_SIZE) + ITEM_MARGIN, (sproutPos.y * TILE_SIZE), ITEM_SIZE, ITEM_SIZE, null);
+            BufferedImage sproutSprite = sprites.sprout;
+            if (finalLevel)
+                sproutSprite = sprites.winsprout;
+            g.drawImage(sproutSprite, (sproutPos.x * TILE_SIZE) + ITEM_MARGIN, (sproutPos.y * TILE_SIZE), ITEM_SIZE, ITEM_SIZE, null);
         }
 
-        g.drawImage(sprites.sun, (board.length - 1) * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, null);
+        BufferedImage sunSprite = sprites.sun;
+        if (completed && finalLevel)
+            sunSprite = sprites.winsun;
+        g.drawImage(sunSprite, (board.length - 1) * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, null);
     }
 
 
@@ -105,7 +115,7 @@ public class Level {
         Point start = new Point(2, 4);
         Point exit = new Point(2, 2);
 
-        return new Level(game, board, start, exit, sprites);
+        return new Level(game, board, start, exit, sprites, false);
     }
 
     // level included in design brief
@@ -187,7 +197,7 @@ public class Level {
         Point start = new Point(1, 5);
         Point exit = new Point(2, 2);
 
-        return new Level(game, board, start, exit, sprites);
+        return new Level(game, board, start, exit, sprites, false);
     }
 
     // harder, bigger Level
@@ -284,6 +294,6 @@ public class Level {
         Point start = new Point(1, 5);
         Point exit = new Point(6, 2);
 
-        return new Level(game, board, start, exit, sprites);
+        return new Level(game, board, start, exit, sprites, true);
     }
 }
