@@ -55,7 +55,7 @@ public class Level {
             player.draw(g);
         else {
             Point sproutPos = Point.add(player.position(), Point.NORTH);
-            g.drawImage(sprites.sprout, sproutPos.x * TILE_SIZE, sproutPos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(sprites.sprout, (sproutPos.x * TILE_SIZE) + 20, (sproutPos.y * TILE_SIZE), ITEM_SIZE, ITEM_SIZE, null);
         }
 
         g.drawImage(sprites.sun, (board.length - 1) * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, null);

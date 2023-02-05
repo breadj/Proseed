@@ -48,21 +48,20 @@ public class Player {
 
 
     private int updateTimer = 250;
-    private boolean completed = false;
+
     public void update() {
         if ((updateTimer += 20) < 250)      // 250 milliseconds is how long the wait timer is
             return;
 
         // if the update timer is equal to or larger than the wait time
         if (isMoving) {
+            boolean completed = moving.push();
+
             if (completed) {
                 isMoving = false;
                 moving = null;      // just a safety measure in case it tries moving after it's done
-                completed = false;
                 return;
             }
-
-            completed = moving.push();
         }
         updateTimer = 0;
     }
