@@ -174,7 +174,7 @@ public class Player {
                     currentTile.barriers[0] == Barrier.CLOSED) {
                 moveSouth();
             } else if (currentTile.barriers[0] == Barrier.PASSABLE) {
-                rootEnd.add(Point.NORTH);
+                pushDirection(Point.NORTH);
             }
         }
 
@@ -184,7 +184,7 @@ public class Player {
                     currentTile.barriers[1] == Barrier.CLOSED) {
                 moveWest();
             } else if (currentTile.barriers[1] == Barrier.PASSABLE) {
-                rootEnd.add(Point.EAST);
+                pushDirection(Point.EAST);
             }
         }
 
@@ -194,7 +194,7 @@ public class Player {
                     currentTile.barriers[2] == Barrier.CLOSED) {
                 moveNorth();
             } else if (currentTile.barriers[2] == Barrier.PASSABLE) {
-                rootEnd.add(Point.SOUTH);
+                pushDirection(Point.SOUTH);
             }
         }
 
@@ -204,8 +204,12 @@ public class Player {
                     currentTile.barriers[3] == Barrier.CLOSED) {
                 moveEast();
             } else if (currentTile.barriers[3] == Barrier.PASSABLE) {
-                rootEnd.add(Point.WEST);
+                pushDirection(Point.WEST);
             }
+        }
+
+        void pushDirection(Point direction) {
+            rootEnd.add(direction);
         }
 
 
@@ -213,7 +217,7 @@ public class Player {
             Tile currentTile = level.at(pos);
             if (currentTile.barriers[0] == Barrier.PASSABLE ||
                     currentTile.barriers[0] == Barrier.BREAKABLE) {
-                pos.add(Point.NORTH);
+                moveDirection(Point.NORTH);
                 currentTile.barriers[0] = Barrier.PASSABLE;
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
@@ -226,7 +230,7 @@ public class Player {
             Tile currentTile = level.at(pos);
             if (currentTile.barriers[1] == Barrier.PASSABLE ||
                     currentTile.barriers[1] == Barrier.BREAKABLE) {
-                pos.add(Point.EAST);
+                moveDirection(Point.EAST);
                 currentTile.barriers[1] = Barrier.PASSABLE;
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
@@ -239,7 +243,7 @@ public class Player {
             Tile currentTile = level.at(pos);
             if (currentTile.barriers[2] == Barrier.PASSABLE ||
                     currentTile.barriers[2] == Barrier.BREAKABLE) {
-                pos.add(Point.SOUTH);
+                moveDirection(Point.SOUTH);
                 currentTile.barriers[2] = Barrier.PASSABLE;
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
@@ -252,13 +256,17 @@ public class Player {
             Tile currentTile = level.at(pos);
             if (currentTile.barriers[3] == Barrier.PASSABLE ||
                     currentTile.barriers[3] == Barrier.BREAKABLE) {
-                pos.add(Point.WEST);
+                moveDirection(Point.WEST);
                 currentTile.barriers[3] = Barrier.PASSABLE;
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
                 currentTile.moveOntoTile(player);
                 currentTile.barriers[1] = Barrier.PASSABLE;
             }
+        }
+
+        void moveDirection(Point direction) {
+            pos.add(direction);
         }
     }
 }
