@@ -3,9 +3,9 @@ Theme: Roots
 
 "Proseed" is a 2D puzzle game where you control a seed as it proceeds through a dirt to its final destination at the surface to grow.
 
-Lead Programmer - Joseph Darby
-Artist - Ella Petheram
-Sound Designer - Alexander Tyler
+Lead Programmer - Joseph Darby  
+Artist - Ella Petheram  
+Sound Designer - Alexander Tyler  
 
 Game Page: https://globalgamejam.org/2023/games/proseed-9
 
