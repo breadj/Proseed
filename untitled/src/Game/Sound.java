@@ -80,7 +80,7 @@ public static class soundWater{
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-15); // reduce by 15
+            gainControl.setValue(-20); // reduce by 20
             clip.start();
         }
     }
