@@ -38,10 +38,26 @@ public static class soundWater{
     }
 }
 
-
-
-    // splash https://freesound.org/people/soundscalpel.com/sounds/110393/
-    // stretch https://freesound.org/people/aabbccddee123/sounds/469429/
-
-
+    public static class soundStretch{
+        public static void main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+            File filee = new File("Sound/stretch.wav");//https://freesound.org/people/aabbccddee123/sounds/469429/
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(filee);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(0); // no volume change
+            clip.start();
+        }
+    }
+    public static class soundHit{
+        public static void main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+            File fileh = new File("Sound/hitHurt.wav");//https://sfxr.me/
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileh);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10); // no volume change
+            clip.start();
+        }
+    }
 }

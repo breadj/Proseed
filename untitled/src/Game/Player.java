@@ -47,6 +47,15 @@ public class Player {
             }
             case Snail -> {
                 isDead = true;
+
+                try {
+                    Sound.soundHit.main();
+                } catch (LineUnavailableException |
+                         UnsupportedAudioFileException |
+                         IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 // TODO: here you go Alex
             }
         }
@@ -210,6 +219,14 @@ public class Player {
 
         void pushDirection(Point direction) {
             rootEnd.add(direction);
+            try {
+                Sound.soundStretch.main();
+            } catch (LineUnavailableException |
+                     UnsupportedAudioFileException |
+                     IOException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
 
@@ -267,6 +284,14 @@ public class Player {
 
         void moveDirection(Point direction) {
             pos.add(direction);
+            try {
+                Sound.soundStretch.main();
+            } catch (LineUnavailableException |
+                     UnsupportedAudioFileException |
+                     IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         }
     }
-}
+
