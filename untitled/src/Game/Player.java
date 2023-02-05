@@ -239,7 +239,10 @@ public class Player {
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
                 currentTile.moveOntoTile(player);
-                currentTile.barriers[2] = Barrier.PASSABLE;
+                if (currentTile.barriers[2] == Barrier.BREAKABLE) {
+                    currentTile.barriers[2] = Barrier.PASSABLE;
+                    breakWallSound();
+                }
             }
         }
 
@@ -252,7 +255,10 @@ public class Player {
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
                 currentTile.moveOntoTile(player);
-                currentTile.barriers[3] = Barrier.PASSABLE;
+                if (currentTile.barriers[3] == Barrier.BREAKABLE) {
+                    currentTile.barriers[3] = Barrier.PASSABLE;
+                    breakWallSound();
+                }
             }
         }
 
@@ -265,7 +271,10 @@ public class Player {
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
                 currentTile.moveOntoTile(player);
-                currentTile.barriers[0] = Barrier.PASSABLE;
+                if (currentTile.barriers[0] == Barrier.BREAKABLE) {
+                    currentTile.barriers[0] = Barrier.PASSABLE;
+                    breakWallSound();
+                }
             }
         }
 
@@ -278,7 +287,10 @@ public class Player {
 
                 currentTile = level.at(pos);    // updates the currentTile with the player's new position
                 currentTile.moveOntoTile(player);
-                currentTile.barriers[1] = Barrier.PASSABLE;
+                if (currentTile.barriers[1] == Barrier.BREAKABLE) {
+                    currentTile.barriers[1] = Barrier.PASSABLE;
+                    breakWallSound();
+                }
             }
         }
 
@@ -292,6 +304,16 @@ public class Player {
                 throw new RuntimeException(e);
             }
         }
+
+        void breakWallSound() {
+            try {
+                Sound.soundWall.main();
+            } catch (LineUnavailableException |
+                     UnsupportedAudioFileException |
+                     IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+}
 

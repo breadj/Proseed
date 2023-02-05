@@ -56,7 +56,31 @@ public static class soundWater{
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10); // no volume change
+            gainControl.setValue(-10); // reduce by 10
+            clip.start();
+        }
+    }
+
+    public static class soundWall{
+        public static void main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+            File fileWa = new File("Sound/wallBreak.wav");//https://sfxr.me/
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileWa);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10); // reduce by 10
+            clip.start();
+        }
+    }
+
+    public static class soundPass{
+        public static void main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+            File filep = new File("Sound/pass.wav");//https://sfxr.me/
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(filep);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-15); // reduce by 15
             clip.start();
         }
     }

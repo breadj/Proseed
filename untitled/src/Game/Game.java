@@ -4,6 +4,10 @@ import Images.Sprites;
 import Input.KeyHandler;
 import Utility.JEasyFrame;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Game {
 
     public Level currentLevel;
@@ -29,21 +33,21 @@ public class Game {
             while (!completed) {
                 game.currentLevel = Level.LevelOne(game, sprites);
                 completed = levelLoop(game.currentLevel, view);
-            }
+            } winSound();
             Thread.sleep(3000);
 
             completed = false;
             while (!completed) {
                 game.currentLevel = Level.LevelTwo(game, sprites);
                 completed = levelLoop(game.currentLevel, view);
-            }
+            } winSound();
             Thread.sleep(3000);
 
             completed = false;
             while (!completed) {
                 game.currentLevel = Level.LevelThree(game, sprites);
                 completed = levelLoop(game.currentLevel, view);
-            }
+            } winSound();
             Thread.sleep(3000);
         }
         // TODO: display 'winner' message
@@ -59,4 +63,13 @@ public class Game {
         return level.completed;
     }
 
+    private static void winSound() {
+        try {
+            Sound.soundPass.main();
+        } catch (LineUnavailableException |
+                 UnsupportedAudioFileException |
+                 IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
