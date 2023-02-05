@@ -35,19 +35,20 @@ public class Player {
 
     public void interact(Item item) {
         switch (item) {
-            case Water -> {rootLength += 1;
+            case Water -> {
+                rootLength += 1;
                 try {
                     Sound.soundWater.main();
-                } catch (LineUnavailableException e) {
-                    throw new RuntimeException(e);
-                } catch (UnsupportedAudioFileException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
+                } catch (LineUnavailableException |
+                         UnsupportedAudioFileException |
+                         IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-
-            case Snail -> isDead = true;
+            case Snail -> {
+                isDead = true;
+                // TODO: here you go Alex
+            }
         }
     }
 
