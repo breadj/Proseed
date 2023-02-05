@@ -50,7 +50,7 @@ public class Level {
                 tile.draw(g);
 
         // light
-        if (completed)
+        if (!completed)
             g.drawImage(sprites.light, (exit.x * TILE_SIZE) + ITEM_MARGIN, exit.y * TILE_SIZE, ITEM_SIZE, ITEM_SIZE, null);
 
         player.draw(g);
