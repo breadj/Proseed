@@ -19,6 +19,10 @@ While this has been a challange with none of us having ever made a video game, w
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Warning: Can only be played with /untitled as the working directory.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Controls: 
 - Arrow Keys: Moves the seedling
 - R: Resets the level
