@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/*As a note here, well aware this is perhaps not the ideal way to get sound working,
+however, this was a great learning experience as we have never used sound before with Java!
+ */
 
 
 public class Sound {
@@ -18,6 +21,7 @@ public class Sound {
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-7.0f); // reduce volume by 7db
         clip.start();
+        clip.loop(40);
         File file2 = new File("Sound/birdambient.wav"); //https://freesound.org/people/bajko/sounds/385279/
         AudioInputStream audioStream2 = AudioSystem.getAudioInputStream(file2);
         Clip clip2 = AudioSystem.getClip();
@@ -25,6 +29,7 @@ public class Sound {
         FloatControl gainControl2 = (FloatControl) clip2.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl2.setValue(-15.0f); // reduce volume by 15db
         clip2.start();
+        clip2.loop(42);
     }
 public static class soundWater{
     public static void main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
